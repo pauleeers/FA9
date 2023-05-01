@@ -1,0 +1,59 @@
+---
+title: "Cristobal_FA9"
+output: html_document
+date: "2023-05-01"
+---
+
+1. An analogue signal received at a detector, measured in microvolts, is normally
+distributed with mean of 200 and variance of 256.
+(a) What is the probability that the signal will exceed 224 𝜇V?
+
+```{r}
+prob_more_224 <- pnorm(224, 200, sqrt(256), lower.tail = FALSE)
+cat("Probability that signal is mopre than 224: ", prob_more_224)
+```
+(b) What is the probability that it will be between 186 and 224 𝜇V?
+```{r}
+p224 <- pnorm(224, 200, sqrt(256))
+p186 <- pnorm(186, 200, sqrt(256))
+cat("Probability that signal is mopre than 224: ", p224-p186)
+```
+(c) What is the micro voltage below which 25% of the signals will be?
+```{r}
+v_bel25 <- qnorm(.25, 200, sqrt(256))
+cat("Micro voltage below which 25% of the signals is: ", v_bel25, "𝜇V.")
+```
+(d) What is the probability that the signal will be less than 240 𝜇V, given that
+it is larger than 210 𝜇V?
+```{r}
+prob <- pnorm(240,200,sqrt(256))/(1-pnorm(210, 200, sqrt(256)))
+cat("The probability is: ", prob)
+```
+(e) Estimate the interquartile range.
+```{r}
+interq_range <- qnorm(.75, 200, sqrt(256)) - qnorm(.25, 200, sqrt(256))
+cat("The interquartile range is: ", interq_range)
+```
+(f) What is the probability that the signal will be less than 220 𝜇V, given that
+it is larger than 210 𝜇V?
+(g) If we know that a received signal is greater that 200 𝜇V, what is the probability that is in fact greater than 220 𝜇V?
+
+2. A manufacturer of a particular type of computer system is interested in improving its customer support services. As a first step, its marketing department has
+been charged with the responsibility of summarizing the extent of customer
+problems in terms of system failures. Over a period of six months, customers
+were surveyed and the amount of downtime (in minutes) due to system failures
+they had experienced during the previous month was collected. The average
+downtime was found to be 25 minutes and a variance of 144. If it can be
+assumed that downtime is normally distributed:
+
+(a) obtain bounds which will include 95% of the downtime of all the customers
+```{r}
+ub <- qnorm(.95, 25, sqrt(144))
+lb <- qnorm(.05, 25, sqrt(144))
+cat("Bounds are from",round(lb,2),"to",round(ub,2),".")
+```
+(b) obtain the bound above which 10% of the downtime is included.
+```{r}
+b_abv10 <- qnorm(.90, 25, sqrt(144))
+cat("Bound is:",round(b_abv10,2))
+```
